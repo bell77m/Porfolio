@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bunyarit Jerdrujikul — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0d0d0d;
+  --ink-2: #444;
+  --ink-3: #888;
+  --rule: #e8e8e8;
+  --bg: #fafafa;
+  --white: #ffffff;
+  --accent: #1a56db;
+  --accent-light: #e8f0fe;
+  --green: #0d7a4e;
+  --green-bg: #e6f4ee;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  height: 60px;
+  background: rgba(250,250,250,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 7px 16px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent); }
+
+/* ── Sections ── */
+section { padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 8vw, 8rem); }
+.container { max-width: 960px; margin: 0 auto; }
+
+/* ── Hero ── */
+#hero {
+  padding-top: calc(60px + clamp(4rem, 8vw, 7rem));
+  min-height: 100svh;
+  display: flex; align-items: center;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+}
+.hero-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+}
+.hero-name em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  max-width: 520px;
+  font-size: 16px;
+  color: var(--ink-2);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s 0.45s forwards;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 11px 24px;
+  border-radius: 5px;
+  font-size: 14px; font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+.btn-ghost { border: 1px solid var(--rule); color: var(--ink); background: var(--white); }
+.btn-ghost:hover { border-color: var(--ink-2); transform: translateY(-1px); }
+.hero-meta {
+  margin-top: 4rem; padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s 0.55s forwards;
+}
+.hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.hero-meta-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; }
+.hero-meta-value { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* ── Section Header ── */
+.sec-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.6rem;
+}
+.sec-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 3rem;
+}
+
+/* ── About ── */
+#about { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.about-text p { color: var(--ink-2); line-height: 1.8; margin-bottom: 1rem; }
+.about-text p:last-child { margin-bottom: 0; }
+.about-aside { display: flex; flex-direction: column; gap: 2rem; }
+.about-card {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--rule);
+}
+.about-card-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.about-card-value { font-size: 14px; color: var(--ink); line-height: 1.6; }
+
+/* ── Experience ── */
+#experience { background: var(--bg); }
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.exp-item:first-child { border-top: 1px solid var(--rule); }
+.exp-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  padding-top: 3px;
+}
+.exp-role { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.exp-company { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); margin-bottom: 0.75rem; }
+.exp-desc { color: var(--ink-2); font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+  background: var(--white);
+}
+.tag-accent { border-color: #c7d9fb; color: var(--accent); background: var(--accent-light); }
+.badge-founder {
+  display: inline-flex; align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  background: #fef3e2;
+  color: #92400e;
+  border: 1px solid #f59e0b;
+  border-radius: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ── Projects ── */
+#projects { background: var(--white); }
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.proj-card {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.75rem;
+  background: var(--bg);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
+}
+.proj-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); border-color: #d0d8e8; }
+.proj-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+.proj-type { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.proj-name { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.proj-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border: 1px solid #c7d9fb;
+  border-radius: 3px;
+  background: var(--accent-light);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.proj-link:hover { background: #d0e4fd; }
+.proj-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.7; margin: 0.75rem 0; flex: 1; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+.proj-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: #eeeeee;
+  color: var(--ink-2);
+}
+
+/* ── Skills ── */
+#skills { background: var(--bg); }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.skill-group-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.skill-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-size: 12.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+}
+.chip-core { background: var(--accent-light); border-color: #c7d9fb; color: #1a3a7c; }
+.chip-green { background: var(--green-bg); border-color: #9ed4be; color: var(--green); }
+
+/* ── Contact ── */
+#contact { background: var(--ink); color: #fff; }
+#contact .sec-label { color: #888; }
+#contact .sec-title { color: #fff; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.contact-sub { color: #aaa; line-height: 1.8; margin-bottom: 2rem; font-size: 15px; }
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link {
+  display: flex; align-items: center; gap: 10px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.contact-link:hover { color: #fff; }
+.contact-link-icon {
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-aside { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+.contact-card-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.contact-card-value { font-size: 14px; color: #ddd; }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4ade80; margin-right: 6px; animation: pulse 2s infinite; }
+
+/* ── Footer ── */
+footer {
+  background: #080808;
+  padding: 1.5rem clamp(1.5rem, 8vw, 8rem);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+footer span { font-family: 'DM Mono', monospace; font-size: 11px; color: #444; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">bell77m</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:bell77m@gmail.com">Hire me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Software Engineer · Bangkok, Thailand</div>
+    <h1 class="hero-name">Bunyarit<br><em>Jerdrujikul</em></h1>
+    <p class="hero-sub">
+      Computer Engineering student building full-stack products, open-source libraries, and security-hardened systems. Founded a 12-person software studio. Always writing code that ships.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-ghost" href="https://github.com/bell77m" target="_blank">GitHub ↗</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/bunyarit-jerdrujikul-316520168" target="_blank">LinkedIn ↗</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Status</span>
+        <span class="hero-meta-value"><span class="status-dot"></span>Open to work</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Graduating</span>
+        <span class="hero-meta-value">2026 · B.Eng CPE</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Focus</span>
+        <span class="hero-meta-value">Full-Stack · Backend · SWE</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Published</span>
+        <span class="hero-meta-value">repdeco on PyPI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">About</div>
+      <div class="sec-title">Engineer by education,<br>founder by choice.</div>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a Computer Engineering student at Kasetsart University Sriracha Campus, graduating in 2026. I build full-stack web applications, backend systems, and developer tools — always with a security-first mindset shaped by hands-on penetration testing experience.</p>
+        <p>In 2025 I founded <strong>Compax Tech Solutions</strong>, a 12-person software studio where I lead architecture, engineering, and client delivery. We've shipped projects for retail and service clients with zero post-launch vulnerabilities.</p>
+        <p>I also published <strong>repdeco</strong> — a Python resilience decorator library on PyPI — and actively contribute to projects that solve real engineering problems.</p>
+      </div>
+      <div class="about-aside">
+        <div class="about-card">
+          <div class="about-card-label">Education</div>
+          <div class="about-card-value">B.Eng. Computer Engineering<br><span style="color:var(--ink-3);font-size:13px">Kasetsart University Sriracha · 2022–2026</span></div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Relevant Coursework</div>
+          <div class="about-card-value" style="font-size:13.5px;color:var(--ink-2)">Data Structures · OS · Databases · Networks · Embedded Systems · Machine Learning · Cyber Security</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Languages</div>
+          <div class="about-card-value" style="font-size:13.5px;color:var(--ink-2)">Thai — Native &nbsp;·&nbsp; English — B1 &nbsp;·&nbsp; Spanish — Basic</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Experience</div>
+      <div class="sec-title">Where I've worked.</div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-date">2025 – Present</div>
+        <div>
+          <div class="exp-role">Freelance Web Developer & Founder <span class="badge-founder">Founder</span></div>
+          <div class="exp-company">Compax Tech Solutions · Remote</div>
+          <div class="exp-desc">Founded and led a 12-person software studio delivering full-stack applications end-to-end — from architecture and scoping to CI/CD deployment. Built reusable TypeScript + React component libraries that cut setup time by ~40% across projects. Integrated OWASP-based secure coding reviews into every sprint, resulting in zero post-launch vulnerability reports across all clients.</div>
+          <div class="exp-tags">
+            <span class="tag tag-accent">TypeScript</span>
+            <span class="tag tag-accent">React</span>
+            <span class="tag tag-accent">FastAPI</span>
+            <span class="tag tag-accent">Docker</span>
+            <span class="tag">Team Lead</span>
+            <span class="tag">Full-stack</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">2025 – 2026</div>
+        <div>
+          <div class="exp-role">Software & Security Engineer Intern</div>
+          <div class="exp-company">You And Earth (Thailand) Co., Ltd. · Bangkok</div>
+          <div class="exp-desc">Assessed 5+ production web applications for OWASP Top 10 vulnerabilities. Developed internal Python scripts to automate recon workflows. Authored technical reports with CVSS-rated findings and code-level remediation guides — 100% of critical issues resolved within sprint cycles.</div>
+          <div class="exp-tags">
+            <span class="tag tag-accent">Python</span>
+            <span class="tag tag-accent">API Testing</span>
+            <span class="tag">OWASP Top 10</span>
+            <span class="tag">Web Security</span>
+            <span class="tag">Technical Reporting</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">2021 – 2022</div>
+        <div>
+          <div class="exp-role">Junior Web Developer</div>
+          <div class="exp-company">Farrmhub Laos Co. · Laos (Remote)</div>
+          <div class="exp-desc">Developed and maintained 10+ features for an agricultural platform using PHP and JavaScript. Redesigned relational database schemas and optimized queries, reducing errors by ~30% and improving data retrieval consistency across core workflows.</div>
+          <div class="exp-tags">
+            <span class="tag tag-accent">PHP</span>
+            <span class="tag tag-accent">JavaScript</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Database Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">2024 – 2025</div>
+        <div>
+          <div class="exp-role">Founder & President — Cyber Geek Club</div>
+          <div class="exp-company">Kasetsart University Sriracha Campus</div>
+          <div class="exp-desc">Founded and led the university tech club with 30+ active members, organizing 5+ workshops on programming, cybersecurity, and IoT — reaching 100+ students. Established the club as an official university tech community.</div>
+          <div class="exp-tags">
+            <span class="tag">Community</span>
+            <span class="tag">Leadership</span>
+            <span class="tag">Workshops</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Projects</div>
+      <div class="sec-title">Things I've built.</div>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-type">Open Source · Backend</div>
+        <div class="proj-header">
+          <div class="proj-name">repdeco</div>
+          <a class="proj-link" href="https://github.com/bell77m/repdeco" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="proj-desc">Python resilience decorator library published to PyPI. Exposes decorators for retry, timeout, circuit breaker, and fallback patterns — hardens flaky APIs and DB connections with zero boilerplate.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">PyPI</span>
+          <span class="proj-tag">Open Source</span>
+          <span class="proj-tag">Fault Tolerance</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-type">NLP · Machine Learning</div>
+        <div class="proj-header">
+          <div class="proj-name">Thai News Topic Modeling</div>
+          <a class="proj-link" href="https://github.com/bell77m/Topic_modeling_thai_politic_news" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="proj-desc">NLP pipeline on Thai political news — Thai word segmentation, LDA topic clustering, and content recommendation. Tackles Thai's no-whitespace tokenization challenge.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">LDA</span>
+          <span class="proj-tag">NLP</span>
+          <span class="proj-tag">Data Science</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-type">Python CLI · Software</div>
+        <div class="proj-header">
+          <div class="proj-name">AudioStegano</div>
+          <a class="proj-link" href="https://github.com/bell77m/AudioStegano" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="proj-desc">Hides and extracts secret payloads inside WAV files using LSB steganography. CLI supporting configurable bit-depth encode/decode.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">LSB Encoding</span>
+          <span class="proj-tag">Signal Processing</span>
+          <span class="proj-tag">CLI</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-type">Embedded Systems · IoT</div>
+        <div class="proj-header">
+          <div class="proj-name">Gun Simulator Controller</div>
+          <a class="proj-link" href="https://github.com/bell77m/Gun-Simulator" target="_blank">GitHub ↗</a>
+        </div>
+        <div class="proj-desc">Physical gun-shaped PC controller on ESP32-S3 — RTOS firmware with interrupt-driven sensor I/O and Bluetooth HID pairing as a native input device.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">ESP32-S3</span>
+          <span class="proj-tag">Embedded C</span>
+          <span class="proj-tag">RTOS</span>
+          <span class="proj-tag">Bluetooth HID</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Skills</div>
+      <div class="sec-title">What I work with.</div>
+    </div>
+    <div class="skills-grid reveal">
+      <div>
+        <div class="skill-group-label">Core Languages</div>
+        <div class="skill-chips">
+          <span class="chip chip-core">Python</span>
+          <span class="chip chip-core">TypeScript</span>
+          <span class="chip chip-core">JavaScript</span>
+          <span class="chip chip-core">SQL</span>
+          <span class="chip chip-core">Bash</span>
+          <span class="chip">C / C++</span>
+          <span class="chip">PHP</span>
+          <span class="chip">Go</span>
+          <span class="chip">Java</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Frameworks & Tools</div>
+        <div class="skill-chips">
+          <span class="chip chip-core">FastAPI</span>
+          <span class="chip chip-core">React</span>
+          <span class="chip chip-core">GraphQL</span>
+          <span class="chip chip-core">Docker</span>
+          <span class="chip chip-core">Git / GitHub</span>
+          <span class="chip">Nginx</span>
+          <span class="chip">React Native</span>
+          <span class="chip">Postman</span>
+          <span class="chip">Linux CLI</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Security & Networking</div>
+        <div class="skill-chips">
+          <span class="chip chip-green">OWASP Top 10</span>
+          <span class="chip chip-green">Secure Coding</span>
+          <span class="chip chip-green">VAPT</span>
+          <span class="chip chip-green">TCP/IP</span>
+          <span class="chip chip-green">HTTP/S</span>
+          <span class="chip">Burp Suite</span>
+          <span class="chip">Nmap</span>
+          <span class="chip">Wireshark</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements strip -->
+    <div class="reveal" style="margin-top:3.5rem;">
+      <div class="skill-group-label" style="margin-bottom:1rem;">Recognition</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+        <div style="background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.9rem 1.2rem;min-width:200px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px">Excellent Reward — KU-Coupon</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3)">Best solution for UN SDGs · KU, 2025</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.9rem 1.2rem;min-width:200px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px">Demo Day — Hackathon Thailand League</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3)">Presented at TrueDigital · 2023</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.9rem 1.2rem;min-width:200px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px">Stupid Hackathon #7, #8 · Participant, #9 · Staff</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3)">3 consecutive years · Creatorsgarten</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.9rem 1.2rem;min-width:200px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px">Thailand Cyber Top Talent 2022</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3)">NCSA × Huawei national program</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Contact</div>
+      <div class="sec-title">Let's build something.</div>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-sub">I'm currently open to full-time software engineering roles, internships, and freelance projects. If you have something interesting, let's talk.</p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:bell77m@gmail.com">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 8 10-8"/></svg>
+            </div>
+            bell77m@gmail.com
+          </a>
+          <a class="contact-link" href="https://github.com/bell77m" target="_blank">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </div>
+            github.com/bell77m
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/bunyarit-jerdrujikul-316520168" target="_blank">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            linkedin.com/in/bunyarit
+          </a>
+          <a class="contact-link" href="tel:+66950169701">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.52 12 19.79 19.79 0 01.46 3.38 2 2 0 012.43 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.65a16 16 0 006.29 6.29l1.61-1.61a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92z"/></svg>
+            </div>
+            +66 95 016 9701
+          </a>
+        </div>
+      </div>
+      <div class="contact-aside">
+        <div class="contact-card">
+          <div class="contact-card-label">Location</div>
+          <div class="contact-card-value">Bangkok, Thailand 🇹🇭</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-label">Availability</div>
+          <div class="contact-card-value"><span class="status-dot"></span>Open to full-time, internship & freelance</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-label">Response time</div>
+          <div class="contact-card-value">Usually within 24 hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Bunyarit Jerdrujikul</span>
+  <span>Built with ♥ · Bangkok</span>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stagger child reveals in grids
+document.querySelectorAll('.proj-grid .reveal, .skills-grid .reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 80) + 'ms';
+});
+</script>
+</body>
+</html>
