@@ -1,4 +1,72 @@
 ---
+const activities = [
+  {
+    title: 'Stupid Hackathon #9',
+    category: 'hackathon',
+    date: '2025 · Creatorsgarten',
+    images: ['/activities_img/stp9_1.png', '/activities_img/stp9_2.png']
+  },
+  {
+    title: 'Stupid Hackathon #8',
+    category: 'hackathon',
+    date: '2024 · Creatorsgarten',
+    images: ['/activities_img/stp8.jpg']
+  },
+  {
+    title: 'Stupid Hackathon #7',
+    category: 'hackathon',
+    date: '2023 · Creatorsgarten',
+    images: ['/activities_img/stp7.jpg']
+  },
+  {
+    title: 'Startup Thailand League',
+    category: 'hackathon',
+    date: '2024 · Startup Thailand',
+    images: ['/activities_img/startup_thailand_1.jpg', '/activities_img/startup_thailnad_2.jpg']
+  },
+  {
+    title: 'Cyber Security Competitions',
+    category: 'workshop',
+    date: '2022-2024 · NCSA',
+    images: ['/activities_img/top_gun2024.jfif', '/activities_img/cyberbootcamp_1.jpg', '/activities_img/cybereithsecplayground.jfif']
+  },
+  {
+    title: 'Coding & Robotics Competitions',
+    category: 'hackathon',
+    date: '2022-2024',
+    images: ['/activities_img/code_competition.jfif', '/activities_img/hackabuff.jfif', '/activities_img/nationcode.jpg', '/activities_img/robotics.jpg', '/activities_img/mos_olympic.jfif']
+  },
+  {
+    title: 'KU-Coupon · UN SDGs',
+    category: 'hackathon',
+    date: '2025 · Kasetsart University',
+    images: ['/activities_img/kupon.jpg']
+  },
+  {
+    title: 'Public Speaking & Pitching',
+    category: 'community',
+    date: '2024 · KU Sriracha',
+    images: ['/activities_img/speak_1.jpg', '/activities_img/speak_2.jpg']
+  },
+  {
+    title: 'Teaching & Mentoring',
+    category: 'community',
+    date: '2024 · KU Sriracha',
+    images: ['/activities_img/teach_1.jpg', '/activities_img/teach_2.jpg']
+  },
+  {
+    title: 'Cyber Geek Club & Open House',
+    category: 'community',
+    date: '2024-2025 · KU Sriracha',
+    images: ['/activities_img/clubpresident.jpg', '/activities_img/openhouse.jfif']
+  },
+  {
+    title: 'English & IELTS Practice',
+    category: 'workshop',
+    date: '2023-2024',
+    images: ['/activities_img/English_practice_1.jpg', '/activities_img/English_practice_2.jpg', '/activities_img/English_practice_3.jpg', '/activities_img/ielts_practice_1.jpg', '/activities_img/ielts_2.jpg']
+  }
+];
 ---
 
 <section id="activities">
@@ -16,97 +84,20 @@
     </div>
 
     <div class="gallery-grid reveal">
-
-      <div class="gallery-item" data-category="hackathon" data-index="0">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>Stupid Hackathon #7</span>
+      {activities.map((item, index) => (
+        <div class="gallery-item" data-category={item.category} data-index={index}>
+          <img src={item.images[0]} alt={item.title} />
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-title">{item.title}</div>
+            <div class="gallery-overlay-date">{item.date}</div>
+            {item.images.length > 1 && (
+              <div style="font-size: 11px; color: rgba(255,255,255,0.9); margin-top: 4px; font-weight: 500;">
+                + {item.images.length - 1} photos
+              </div>
+            )}
+          </div>
         </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">Stupid Hackathon #7</div>
-          <div class="gallery-overlay-date">2023 · Creatorsgarten</div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="hackathon" data-index="1">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>Stupid Hackathon #8</span>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">Stupid Hackathon #8</div>
-          <div class="gallery-overlay-date">2024 · Creatorsgarten</div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="hackathon" data-index="2">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>Hackathon Thailand League</span>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">Hackathon Thailand League</div>
-          <div class="gallery-overlay-date">2023 · TrueDigital</div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="community" data-index="3">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>Cyber Geek Club</span>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">Cyber Geek Club</div>
-          <div class="gallery-overlay-date">2024 · KU Sriracha</div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="workshop" data-index="4">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>Thailand Cyber Top Talent</span>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">Thailand Cyber Top Talent</div>
-          <div class="gallery-overlay-date">2022 · NCSA × Huawei</div>
-        </div>
-      </div>
-
-      <div class="gallery-item" data-category="hackathon" data-index="5">
-        <div class="gallery-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="M21 15l-5-5L5 21" />
-          </svg>
-          <span>KU-Coupon · UN SDGs</span>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">KU-Coupon · UN SDGs</div>
-          <div class="gallery-overlay-date">2025 · Kasetsart University</div>
-        </div>
-      </div>
-
+      ))}
     </div>
   </div>
 </section>
@@ -120,10 +111,11 @@
   <div class="lightbox-caption">
     <div class="lightbox-caption-title" id="lightbox-title"></div>
     <div class="lightbox-caption-date" id="lightbox-date"></div>
+    <div class="lightbox-counter" id="lightbox-counter" style="display: none;"></div>
   </div>
 </div>
 
-<script>
+<script define:vars={{ activities }}>
   // ── Activities filter ──
   const filterBtns = document.querySelectorAll('.filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-item');
@@ -145,42 +137,60 @@
   });
 
   // ── Lightbox ──
-  const galleryData = [
-    { src: '', title: 'Stupid Hackathon #7', date: '2023 · Creatorsgarten' },
-    { src: '', title: 'Stupid Hackathon #8', date: '2024 · Creatorsgarten' },
-    { src: '', title: 'Hackathon Thailand League', date: '2023 · TrueDigital' },
-    { src: '', title: 'Cyber Geek Club', date: '2024 · KU Sriracha' },
-    { src: '', title: 'Thailand Cyber Top Talent', date: '2022 · NCSA × Huawei' },
-    { src: '', title: 'KU-Coupon · UN SDGs', date: '2025 · Kasetsart University' },
-  ];
-
   let currentIndex = 0;
+  let currentImgIndex = 0;
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxTitle = document.getElementById('lightbox-title');
   const lightboxDate = document.getElementById('lightbox-date');
+  const lightboxCounter = document.getElementById('lightbox-counter');
 
-  function openLightbox(i) {
+  function openLightbox(i, imgIndex = 0) {
     currentIndex = i;
-    const data = galleryData[i];
-    if (!data.src) return;
-    lightboxImg.src = data.src;
+    currentImgIndex = imgIndex;
+    const data = activities[i];
+    if (!data.images || data.images.length === 0 || !data.images[0]) return;
+    
+    lightboxImg.src = data.images[currentImgIndex];
     lightboxTitle.textContent = data.title;
     lightboxDate.textContent = data.date;
+    
+    if (data.images.length > 1) {
+      lightboxCounter.textContent = `${currentImgIndex + 1} / ${data.images.length}`;
+      lightboxCounter.style.display = 'block';
+    } else {
+      lightboxCounter.style.display = 'none';
+    }
+    
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+  
   function closeLightbox() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
   }
+  
   function nextLightbox() {
-    const next = (currentIndex + 1) % galleryData.length;
-    if (galleryData[next].src) openLightbox(next);
+    const data = activities[currentIndex];
+    if (data.images.length > 1) {
+      currentImgIndex = (currentImgIndex + 1) % data.images.length;
+      openLightbox(currentIndex, currentImgIndex);
+    } else {
+      const next = (currentIndex + 1) % activities.length;
+      if (activities[next].images[0]) openLightbox(next, 0);
+    }
   }
+  
   function prevLightbox() {
-    const prev = (currentIndex - 1 + galleryData.length) % galleryData.length;
-    if (galleryData[prev].src) openLightbox(prev);
+    const data = activities[currentIndex];
+    if (data.images.length > 1) {
+      currentImgIndex = (currentImgIndex - 1 + data.images.length) % data.images.length;
+      openLightbox(currentIndex, currentImgIndex);
+    } else {
+      const prev = (currentIndex - 1 + activities.length) % activities.length;
+      if (activities[prev].images[0]) openLightbox(prev, 0);
+    }
   }
 
   // Event listeners

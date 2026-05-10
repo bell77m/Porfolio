@@ -1,0 +1,34 @@
+---
+const certificates = [
+  { img: '/certificates/1754842391362.png', title: 'Certification', issuer: 'Credential', date: '2025' },
+  { img: '/certificates/1754842689079.jfif', title: 'Certification', issuer: 'Credential', date: '2024' },
+  { img: '/certificates/1754843216272.jfif', title: 'Certification', issuer: 'Credential', date: '2024' },
+  { img: '/certificates/1754843801695.jfif', title: 'Certification', issuer: 'Credential', date: '2023' },
+  { img: '/certificates/1754843964415.jfif', title: 'Certification', issuer: 'Credential', date: '2023' },
+  { img: '/certificates/1773697124456.jfif', title: 'Certification', issuer: 'Credential', date: '2023' },
+  { img: '/certificates/615076758_3995703347386370_8958315227016046014_n.jpg', title: 'Certification', issuer: 'Credential', date: '2022' }
+];
+---
+
+<section id="certificates">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Certifications</div>
+      <div class="sec-title">My credentials.</div>
+    </div>
+    <div class="cert-grid">
+      {certificates.map((cert) => (
+        <a href={cert.img} target="_blank" class="cert-card reveal">
+          <img src={cert.img} alt={cert.title} />
+          <div class="cert-overlay">
+            <div class="cert-header">
+              <div class="cert-issuer">{cert.issuer}</div>
+              <div class="cert-date">{cert.date}</div>
+            </div>
+            <div class="cert-name">{cert.title}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
