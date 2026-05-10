@@ -1,0 +1,82 @@
+---
+// 👇 ตั้งค่ารูปโปรไฟล์ของคุณตรงนี้
+// 1. นำไฟล์รูปของคุณ (เช่น my-photo.jpg) ไปวางไว้ในโฟลเดอร์ public/
+// 2. เปลี่ยนชื่อไฟล์ด้านล่างให้ตรงกับไฟล์ของคุณ
+const profileImage = "/profile.jpg"; 
+const profileName = "Bunyarit Jerdrujikul";
+---
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Software Engineer · Bangkok, Thailand</div>
+        <h1 class="hero-name">Bunyarit<br><em>Jerdrujikul</em></h1>
+        <p class="hero-sub">
+          Computer Engineering student building full-stack products, open-source libraries, and security-hardened systems.
+          Founded a 12-person software studio. Always writing code that ships.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="https://github.com/bell77m" target="_blank">GitHub ↗</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/bunyarit-jerdrujikul-316520168"
+            target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      
+      <div class="hero-photo-wrapper">
+        <div class="hero-photo">
+          <img src={profileImage} alt={profileName} />
+          <div class="hero-photo-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M20 21a8 8 0 10-16 0" />
+            </svg>
+            <span>เพิ่มรูปภาพใน public/ <br/> แล้วแก้ชื่อไฟล์ที่ไฟล์ Hero.astro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Status</span>
+        <span class="hero-meta-value"><span class="status-dot"></span>Open to work</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Graduating</span>
+        <span class="hero-meta-value">2026 · B.Eng CPE</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Focus</span>
+        <span class="hero-meta-value">Full-Stack · Backend · SWE</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Published</span>
+        <span class="hero-meta-value">repdeco on PyPI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const photoContainer = document.querySelector('.hero-photo');
+  const img = photoContainer?.querySelector('img');
+  
+  if (img && photoContainer) {
+    const handleLoad = () => {
+      photoContainer.classList.add('has-image');
+      img.classList.add('loaded');
+    };
+
+    if (img.complete && img.naturalHeight !== 0) {
+      handleLoad();
+    }
+    
+    img.addEventListener('load', handleLoad);
+    
+    img.addEventListener('error', () => {
+      photoContainer.classList.remove('has-image');
+      img.classList.remove('loaded');
+    });
+  }
+</script>

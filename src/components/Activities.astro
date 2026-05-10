@@ -1,0 +1,207 @@
+---
+---
+
+<section id="activities">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Activities</div>
+      <div class="sec-title">Events I've joined.</div>
+    </div>
+
+    <div class="activities-filter reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="hackathon">Hackathon</button>
+      <button class="filter-btn" data-filter="workshop">Workshop</button>
+      <button class="filter-btn" data-filter="community">Community</button>
+    </div>
+
+    <div class="gallery-grid reveal">
+
+      <div class="gallery-item" data-category="hackathon" data-index="0">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>Stupid Hackathon #7</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">Stupid Hackathon #7</div>
+          <div class="gallery-overlay-date">2023 · Creatorsgarten</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="hackathon" data-index="1">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>Stupid Hackathon #8</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">Stupid Hackathon #8</div>
+          <div class="gallery-overlay-date">2024 · Creatorsgarten</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="hackathon" data-index="2">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>Hackathon Thailand League</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">Hackathon Thailand League</div>
+          <div class="gallery-overlay-date">2023 · TrueDigital</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="community" data-index="3">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>Cyber Geek Club</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">Cyber Geek Club</div>
+          <div class="gallery-overlay-date">2024 · KU Sriracha</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="workshop" data-index="4">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>Thailand Cyber Top Talent</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">Thailand Cyber Top Talent</div>
+          <div class="gallery-overlay-date">2022 · NCSA × Huawei</div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="hackathon" data-index="5">
+        <div class="gallery-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+          <span>KU-Coupon · UN SDGs</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">KU-Coupon · UN SDGs</div>
+          <div class="gallery-overlay-date">2025 · Kasetsart University</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close-btn">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev-btn">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next-btn">›</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption">
+    <div class="lightbox-caption-title" id="lightbox-title"></div>
+    <div class="lightbox-caption-date" id="lightbox-date"></div>
+  </div>
+</div>
+
+<script>
+  // ── Activities filter ──
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      galleryItems.forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = '';
+          item.style.animation = 'fadeUp 0.4s ease forwards';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ── Lightbox ──
+  const galleryData = [
+    { src: '', title: 'Stupid Hackathon #7', date: '2023 · Creatorsgarten' },
+    { src: '', title: 'Stupid Hackathon #8', date: '2024 · Creatorsgarten' },
+    { src: '', title: 'Hackathon Thailand League', date: '2023 · TrueDigital' },
+    { src: '', title: 'Cyber Geek Club', date: '2024 · KU Sriracha' },
+    { src: '', title: 'Thailand Cyber Top Talent', date: '2022 · NCSA × Huawei' },
+    { src: '', title: 'KU-Coupon · UN SDGs', date: '2025 · Kasetsart University' },
+  ];
+
+  let currentIndex = 0;
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxDate = document.getElementById('lightbox-date');
+
+  function openLightbox(i) {
+    currentIndex = i;
+    const data = galleryData[i];
+    if (!data.src) return;
+    lightboxImg.src = data.src;
+    lightboxTitle.textContent = data.title;
+    lightboxDate.textContent = data.date;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function nextLightbox() {
+    const next = (currentIndex + 1) % galleryData.length;
+    if (galleryData[next].src) openLightbox(next);
+  }
+  function prevLightbox() {
+    const prev = (currentIndex - 1 + galleryData.length) % galleryData.length;
+    if (galleryData[prev].src) openLightbox(prev);
+  }
+
+  // Event listeners
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.dataset.index);
+      openLightbox(index);
+    });
+  });
+
+  document.getElementById('lightbox-close-btn').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev-btn').addEventListener('click', prevLightbox);
+  document.getElementById('lightbox-next-btn').addEventListener('click', nextLightbox);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextLightbox();
+    if (e.key === 'ArrowLeft') prevLightbox();
+  });
+</script>

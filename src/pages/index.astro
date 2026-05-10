@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Skills from '../components/Skills.astro';
+import Activities from '../components/Activities.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Experience />
+  <Projects />
+  <Skills />
+  <Activities />
+  <Contact />
+  <Footer />
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stagger child reveals in grids
+    document.querySelectorAll('.proj-grid .reveal, .skills-grid .reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 80) + 'ms';
+    });
+  </script>
+</BaseLayout>
