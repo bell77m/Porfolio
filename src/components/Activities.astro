@@ -1,71 +1,93 @@
 ---
 const activities = [
   {
-    title: 'Stupid Hackathon #9',
-    category: 'hackathon',
-    date: '2025 · Creatorsgarten',
-    images: ['/activities_img/stp9_1.png', '/activities_img/stp9_2.png']
+    title: "Stupid Hackathon #9",
+    category: "hackathon",
+    date: "2025 · Creatorsgarten",
+    images: ["/activities_img/stp9_1.png", "/activities_img/stp9_2.png"],
   },
   {
-    title: 'Stupid Hackathon #8',
-    category: 'hackathon',
-    date: '2024 · Creatorsgarten',
-    images: ['/activities_img/stp8.jpg']
+    title: "Stupid Hackathon #8",
+    category: "hackathon",
+    date: "2024 · Creatorsgarten",
+    images: ["/activities_img/stp8.jpg"],
   },
   {
-    title: 'Stupid Hackathon #7',
-    category: 'hackathon',
-    date: '2023 · Creatorsgarten',
-    images: ['/activities_img/stp7.jpg']
+    title: "Stupid Hackathon #7",
+    category: "hackathon",
+    date: "2023 · Creatorsgarten",
+    images: ["/activities_img/stp7.jpg"],
   },
   {
-    title: 'Startup Thailand League',
-    category: 'hackathon',
-    date: '2024 · Startup Thailand',
-    images: ['/activities_img/startup_thailand_1.jpg', '/activities_img/startup_thailnad_2.jpg']
+    title: "Startup Thailand League",
+    category: "hackathon",
+    date: "2024 · Startup Thailand",
+    images: [
+      "/activities_img/startup_thailand_1.jpg",
+      "/activities_img/startup_thailnad_2.jpg",
+    ],
   },
   {
-    title: 'Cyber Security Competitions',
-    category: 'workshop',
-    date: '2022-2024 · NCSA',
-    images: ['/activities_img/top_gun2024.jfif', '/activities_img/cyberbootcamp_1.jpg', '/activities_img/cybereithsecplayground.jfif']
+    title: "Cyber Security Competitions",
+    category: "workshop",
+    date: "2022-2024 · NCSA",
+    images: [
+      "/activities_img/nationcode.jpg",
+      "/activities_img/cyberbootcamp_1.jpg",
+      "/activities_img/cybereithsecplayground.jfif",
+    ],
   },
   {
-    title: 'Coding & Robotics Competitions',
-    category: 'hackathon',
-    date: '2022-2024',
-    images: ['/activities_img/code_competition.jfif', '/activities_img/hackabuff.jfif', '/activities_img/nationcode.jpg', '/activities_img/robotics.jpg', '/activities_img/mos_olympic.jfif']
+    title: "Coding & Robotics Competitions",
+    category: "hackathon",
+    date: "2022-2024",
+    images: [
+      "/activities_img/robotics.jpg",
+      "/activities_img/code_competition.jfif",
+      "/activities_img/hackabuff.jfif",
+      "/activities_img/nationcode.jpg",
+      "/activities_img/mos_olympic.jfif",
+    ],
   },
   {
-    title: 'KU-Coupon · UN SDGs',
-    category: 'hackathon',
-    date: '2025 · Kasetsart University',
-    images: ['/activities_img/kupon.jpg']
+    title: "KU-Coupon · UN SDGs",
+    category: "hackathon",
+    date: "2025 · Kasetsart University",
+    images: ["/activities_img/kupon.jpg"],
   },
   {
-    title: 'Public Speaking & Pitching',
-    category: 'community',
-    date: '2024 · KU Sriracha',
-    images: ['/activities_img/speak_1.jfif', '/activities_img/speak_2.jpg']
+    title: "Public Speaking & Pitching",
+    category: "community",
+    date: "2024 · KU Sriracha",
+    images: ["/activities_img/speak_1.jfif", "/activities_img/speak_2.jpg"],
   },
   {
-    title: 'Teaching & Mentoring',
-    category: 'community',
-    date: '2024 · KU Sriracha',
-    images: ['/activities_img/teach_1.jpg', '/activities_img/teach_2.jpg']
+    title: "Teaching & Mentoring",
+    category: "community",
+    date: "2024 · KU Sriracha",
+    images: ["/activities_img/teach_1.jpg", "/activities_img/teach_2.jpg"],
   },
   {
-    title: 'Cyber Geek Club & Open House',
-    category: 'community',
-    date: '2024-2025 · KU Sriracha',
-    images: ['/activities_img/clubpresident.jpg', '/activities_img/openhouse.jfif']
+    title: "Cyber Geek Club & Open House",
+    category: "community",
+    date: "2024-2025 · KU Sriracha",
+    images: [
+      "/activities_img/clubpresident.jpg",
+      "/activities_img/openhouse.jfif",
+    ],
   },
   {
-    title: 'English & IELTS Practice',
-    category: 'workshop',
-    date: '2023-2024',
-    images: ['/activities_img/English_practice_1.jpg', '/activities_img/English_practice_2.jpg', '/activities_img/English_practice_3.jpg', '/activities_img/ielts_practice_1.jpg', '/activities_img/ielts_2.jpg']
-  }
+    title: "English & IELTS Practice",
+    category: "workshop",
+    date: "2023-2024",
+    images: [
+      "/activities_img/English_practice_1.jpg",
+      "/activities_img/English_practice_2.jpg",
+      "/activities_img/English_practice_3.jpg",
+      "/activities_img/ielts_practice_1.jpg",
+      "/activities_img/ielts_2.jpg",
+    ],
+  },
 ];
 ---
 
@@ -84,20 +106,26 @@ const activities = [
     </div>
 
     <div class="gallery-grid reveal">
-      {activities.map((item, index) => (
-        <div class="gallery-item" data-category={item.category} data-index={index}>
-          <img src={item.images[0]} alt={item.title} />
-          <div class="gallery-overlay">
-            <div class="gallery-overlay-title">{item.title}</div>
-            <div class="gallery-overlay-date">{item.date}</div>
-            {item.images.length > 1 && (
-              <div style="font-size: 11px; color: rgba(255,255,255,0.9); margin-top: 4px; font-weight: 500;">
-                + {item.images.length - 1} photos
-              </div>
-            )}
+      {
+        activities.map((item, index) => (
+          <div
+            class="gallery-item"
+            data-category={item.category}
+            data-index={index}
+          >
+            <img src={item.images[0]} alt={item.title} />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title">{item.title}</div>
+              <div class="gallery-overlay-date">{item.date}</div>
+              {item.images.length > 1 && (
+                <div style="font-size: 11px; color: rgba(255,255,255,0.9); margin-top: 4px; font-weight: 500;">
+                  + {item.images.length - 1} photos
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -107,30 +135,31 @@ const activities = [
   <button class="lightbox-close" id="lightbox-close-btn">✕</button>
   <button class="lightbox-nav lightbox-prev" id="lightbox-prev-btn">‹</button>
   <button class="lightbox-nav lightbox-next" id="lightbox-next-btn">›</button>
-  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" />
   <div class="lightbox-caption">
     <div class="lightbox-caption-title" id="lightbox-title"></div>
     <div class="lightbox-caption-date" id="lightbox-date"></div>
-    <div class="lightbox-counter" id="lightbox-counter" style="display: none;"></div>
+    <div class="lightbox-counter" id="lightbox-counter" style="display: none;">
+    </div>
   </div>
 </div>
 
 <script define:vars={{ activities }}>
   // ── Activities filter ──
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
       const filter = btn.dataset.filter;
-      galleryItems.forEach(item => {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.style.display = '';
-          item.style.animation = 'fadeUp 0.4s ease forwards';
+      galleryItems.forEach((item) => {
+        if (filter === "all" || item.dataset.category === filter) {
+          item.style.display = "";
+          item.style.animation = "fadeUp 0.4s ease forwards";
         } else {
-          item.style.display = 'none';
+          item.style.display = "none";
         }
       });
     });
@@ -139,38 +168,40 @@ const activities = [
   // ── Lightbox ──
   let currentIndex = 0;
   let currentImgIndex = 0;
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxTitle = document.getElementById('lightbox-title');
-  const lightboxDate = document.getElementById('lightbox-date');
-  const lightboxCounter = document.getElementById('lightbox-counter');
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxTitle = document.getElementById("lightbox-title");
+  const lightboxDate = document.getElementById("lightbox-date");
+  const lightboxCounter = document.getElementById("lightbox-counter");
 
   function openLightbox(i, imgIndex = 0) {
     currentIndex = i;
     currentImgIndex = imgIndex;
     const data = activities[i];
     if (!data.images || data.images.length === 0 || !data.images[0]) return;
-    
+
     lightboxImg.src = data.images[currentImgIndex];
     lightboxTitle.textContent = data.title;
     lightboxDate.textContent = data.date;
-    
+
     if (data.images.length > 1) {
-      lightboxCounter.textContent = `${currentImgIndex + 1} / ${data.images.length}`;
-      lightboxCounter.style.display = 'block';
+      lightboxCounter.textContent = `${currentImgIndex + 1} / ${
+        data.images.length
+      }`;
+      lightboxCounter.style.display = "block";
     } else {
-      lightboxCounter.style.display = 'none';
+      lightboxCounter.style.display = "none";
     }
-    
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
+
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
   }
-  
+
   function closeLightbox() {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
+    lightbox.classList.remove("open");
+    document.body.style.overflow = "";
   }
-  
+
   function nextLightbox() {
     const data = activities[currentIndex];
     if (data.images.length > 1) {
@@ -181,11 +212,12 @@ const activities = [
       if (activities[next].images[0]) openLightbox(next, 0);
     }
   }
-  
+
   function prevLightbox() {
     const data = activities[currentIndex];
     if (data.images.length > 1) {
-      currentImgIndex = (currentImgIndex - 1 + data.images.length) % data.images.length;
+      currentImgIndex =
+        (currentImgIndex - 1 + data.images.length) % data.images.length;
       openLightbox(currentIndex, currentImgIndex);
     } else {
       const prev = (currentIndex - 1 + activities.length) % activities.length;
@@ -194,24 +226,30 @@ const activities = [
   }
 
   // Event listeners
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
+  galleryItems.forEach((item) => {
+    item.addEventListener("click", () => {
       const index = parseInt(item.dataset.index);
       openLightbox(index);
     });
   });
 
-  document.getElementById('lightbox-close-btn').addEventListener('click', closeLightbox);
-  document.getElementById('lightbox-prev-btn').addEventListener('click', prevLightbox);
-  document.getElementById('lightbox-next-btn').addEventListener('click', nextLightbox);
+  document
+    .getElementById("lightbox-close-btn")
+    .addEventListener("click", closeLightbox);
+  document
+    .getElementById("lightbox-prev-btn")
+    .addEventListener("click", prevLightbox);
+  document
+    .getElementById("lightbox-next-btn")
+    .addEventListener("click", nextLightbox);
 
-  lightbox.addEventListener('click', (e) => {
+  lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') nextLightbox();
-    if (e.key === 'ArrowLeft') prevLightbox();
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") nextLightbox();
+    if (e.key === "ArrowLeft") prevLightbox();
   });
 </script>
