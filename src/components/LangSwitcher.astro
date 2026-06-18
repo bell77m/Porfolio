@@ -1,0 +1,410 @@
+---
+const langs = [
+  { code: 'en', label: 'English', short: 'EN' },
+  { code: 'th', label: 'ไทย', short: 'ไทย' },
+  { code: 'zh', label: '中文', short: '中文' },
+];
+---
+
+<div class="lang" id="lang">
+  <button class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z" />
+    </svg>
+    <span id="lang-current">EN</span>
+  </button>
+  <ul class="lang-menu" id="lang-menu" role="menu">
+    {langs.map((l) => (
+      <li><button type="button" role="menuitem" data-lang={l.code}>{l.label}</button></li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .lang {
+    position: relative;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #000;
+    background: transparent;
+    border: 2px solid #000;
+    padding: 5px 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .lang-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .lang-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 120px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 3px solid #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+  }
+
+  .lang.open .lang-menu {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lang-menu button {
+    width: 100%;
+    text-align: left;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 13px;
+    color: #000;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .lang-menu button:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .lang-menu button.active {
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .lang-menu li + li {
+    border-top: 1px solid #000;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-menu { transition: none; }
+  }
+</style>
+
+<script>
+  // Hand-written translations (en is the source already in the HTML).
+  const T: Record<string, Record<string, string>> = {
+    th: {
+      'nav.about': 'เกี่ยวกับ',
+      'nav.experience': 'ประสบการณ์',
+      'nav.projects': 'ผลงาน',
+      'nav.skills': 'ทักษะ',
+      'nav.certificates': 'ใบรับรอง',
+      'nav.activities': 'กิจกรรม',
+      'nav.contact': 'ติดต่อ',
+      'nav.cta': 'ติดต่อฉัน',
+
+      'hero.eyebrow': 'วิศวกรรมคอมพิวเตอร์',
+      'hero.sub': 'นักศึกษาวิศวกรรมคอมพิวเตอร์ ผู้สร้างผลิตภัณฑ์ full-stack ไลบรารีโอเพนซอร์ส และระบบที่เน้นความปลอดภัย ก่อตั้งสตูดิโอซอฟต์แวร์ทีมงาน 12 คน เขียนโค้ดที่ใช้งานได้จริงเสมอ',
+      'hero.viewProjects': 'ดูผลงาน',
+      'hero.statusLabel': 'สถานะ',
+      'hero.statusValue': '<span class="status-dot"></span>เปิดรับงาน',
+      'hero.gradLabel': 'จบการศึกษา',
+      'hero.focusLabel': 'สายงาน',
+      'hero.publishedLabel': 'เผยแพร่',
+
+      'about.label': 'เกี่ยวกับ',
+      'about.title': 'วิศวกรโดยการศึกษา,<br>ผู้ก่อตั้งโดยการเลือก',
+      'about.p1': 'ผมเป็นนักศึกษาวิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา จะจบการศึกษาในปี 2026 ผมสร้างเว็บแอปพลิเคชัน full-stack ระบบ backend และเครื่องมือสำหรับนักพัฒนา โดยยึดหลักความปลอดภัยเป็นอันดับแรกเสมอ จากประสบการณ์ทดสอบเจาะระบบจริง',
+      'about.p2': 'ในปี 2025 ผมก่อตั้ง <strong>Compax Tech Solutions</strong> สตูดิโอซอฟต์แวร์ทีมงาน 12 คน ที่ผมดูแลด้านสถาปัตยกรรม วิศวกรรม และการส่งมอบงานให้ลูกค้า เราส่งมอบโปรเจกต์ให้ลูกค้ากลุ่มค้าปลีกและบริการ โดยไม่มีช่องโหว่ด้านความปลอดภัยหลังเปิดใช้งานเลย',
+      'about.p3': 'ผมยังเผยแพร่ <strong>repdeco</strong> — ไลบรารี Python decorator สำหรับเพิ่มความทนทานของระบบบน PyPI — และมีส่วนร่วมในโปรเจกต์ที่แก้ปัญหาทางวิศวกรรมจริงอย่างต่อเนื่อง',
+      'about.eduLabel': 'การศึกษา',
+      'about.eduValue': 'วศ.บ. วิศวกรรมคอมพิวเตอร์<br><span style="color:var(--ink-3);font-size:13px">มหาวิทยาลัยเกษตรศาสตร์ ศรีราชา · 2022–2026</span>',
+      'about.courseworkLabel': 'วิชาที่เกี่ยวข้อง',
+      'about.courseworkValue': 'โครงสร้างข้อมูล · ระบบปฏิบัติการ · ฐานข้อมูล · เครือข่าย · ระบบสมองกลฝังตัว · แมชชีนเลิร์นนิง · ความมั่นคงปลอดภัยไซเบอร์',
+      'about.langLabel': 'ภาษา',
+      'about.langValue': 'ไทย · อังกฤษ · สเปน',
+
+      'exp.label': 'ประสบการณ์',
+      'exp.title': 'ที่ที่ผมเคยทำงาน',
+      'exp.role.zettasoft': 'นักพัฒนา Full-Stack',
+      'exp.desc.zettasoft': 'พัฒนาและส่งมอบเว็บแอปพลิเคชัน full-stack พร้อมขับเคลื่อนแนวทาง DevSecOps — ผนวกการทดสอบความปลอดภัยอัตโนมัติเข้ากับ CI/CD pipeline ปัจจุบันกำลังพัฒนา AI MCP (Model Context Protocol) server ที่ทำการทดสอบเจาะระบบแบบอัตโนมัติ ตั้งแต่การเก็บข้อมูล สแกน ไปจนถึงการสร้างรายงาน ผ่านเครื่องมือที่ขับเคลื่อนด้วย LLM',
+      'exp.role.compax': 'นักพัฒนาเว็บอิสระ และผู้ก่อตั้ง <span class="badge-founder">ผู้ก่อตั้ง</span>',
+      'exp.badge.founder': 'ผู้ก่อตั้ง',
+      'exp.desc.compax': 'ก่อตั้งและนำสตูดิโอซอฟต์แวร์ทีมงาน 12 คน ที่ส่งมอบแอปพลิเคชัน full-stack แบบครบวงจร — ตั้งแต่ออกแบบสถาปัตยกรรมและกำหนดขอบเขต ไปจนถึงการ deploy ผ่าน CI/CD สร้างไลบรารีคอมโพเนนต์ TypeScript + React ที่นำกลับมาใช้ซ้ำได้ ลดเวลาตั้งค่าโปรเจกต์ลงราว 40% ผนวกการรีวิวโค้ดอย่างปลอดภัยตามแนวทาง OWASP ในทุก sprint ส่งผลให้ไม่มีรายงานช่องโหว่หลังเปิดใช้งานเลยในทุกลูกค้า',
+      'exp.role.intern': 'นักศึกษาฝึกงานวิศวกรซอฟต์แวร์และความปลอดภัย',
+      'exp.desc.intern': 'ประเมินเว็บแอปพลิเคชันใช้งานจริงกว่า 5 ระบบ เพื่อหาช่องโหว่ตาม OWASP Top 10 พัฒนาสคริปต์ Python ภายในเพื่อทำขั้นตอนเก็บข้อมูลแบบอัตโนมัติ จัดทำรายงานทางเทคนิคพร้อมระดับความรุนแรงแบบ CVSS และคู่มือแก้ไขระดับโค้ด — แก้ปัญหาระดับวิกฤตได้ครบ 100% ภายในรอบ sprint',
+      'exp.role.farrmhub': 'นักพัฒนาเว็บระดับจูเนียร์',
+      'exp.desc.farrmhub': 'พัฒนาและดูแลฟีเจอร์กว่า 10 รายการสำหรับแพลตฟอร์มด้านการเกษตร ด้วย PHP และ JavaScript ออกแบบโครงสร้างฐานข้อมูลเชิงสัมพันธ์ใหม่และปรับแต่งคำสั่ง query ลดข้อผิดพลาดลงราว 30% และเพิ่มความสม่ำเสมอของการดึงข้อมูลในกระบวนการหลัก',
+      'exp.role.club': 'ผู้ก่อตั้งและประธาน — Cyber Geek Club',
+      'exp.desc.club': 'ก่อตั้งและนำชมรมเทคโนโลยีของมหาวิทยาลัย ที่มีสมาชิกประจำกว่า 30 คน จัดเวิร์กช็อปกว่า 5 ครั้ง ด้านการเขียนโปรแกรม ความปลอดภัยไซเบอร์ และ IoT — เข้าถึงนักศึกษากว่า 100 คน สถาปนาชมรมให้เป็นชุมชนเทคโนโลยีอย่างเป็นทางการของมหาวิทยาลัย',
+
+      'proj.label': 'ผลงาน',
+      'proj.title': 'สิ่งที่ผมสร้าง',
+      'proj.type.kucoupon': 'Full-Stack · เว็บแอป',
+      'proj.desc.kucoupon': 'สร้างระบบ full-stack ด้วย Express และ PostgreSQL รองรับผู้ใช้กว่า 2,000 คน ออกแบบ backend API และโครงสร้างฐานข้อมูล ช่วยลดการใช้กระดาษในกิจกรรมของมหาวิทยาลัยผ่านระบบดิจิทัลได้สำเร็จ',
+      'proj.type.kurun': 'Backend · ระบบติดตามอีเวนต์',
+      'proj.desc.kurun': 'พัฒนาระบบติดตามอีเวนต์ด้วย FastAPI และ SQLAlchemy ออกแบบระบบยืนยันตัวตนผ่านอีเมลอย่างปลอดภัย และตรวจสอบกิจกรรมแบบอัตโนมัติด้วยการเชื่อมต่อข้อมูลจาก Strava',
+      'proj.type.repdeco': 'โอเพนซอร์ส · Backend',
+      'proj.desc.repdeco': 'ไลบรารี Python decorator สำหรับเพิ่มความทนทาน เผยแพร่บน PyPI มี decorator สำหรับ retry, timeout, circuit breaker และ fallback — เสริมความแข็งแกร่งให้ API และการเชื่อมต่อฐานข้อมูลที่ไม่เสถียร โดยไม่ต้องเขียนโค้ดซ้ำซ้อน',
+      'proj.type.nlp': 'NLP · แมชชีนเลิร์นนิง',
+      'proj.desc.nlp': 'ไปป์ไลน์ NLP สำหรับข่าวการเมืองไทย — การตัดคำภาษาไทย การจัดกลุ่มหัวข้อด้วย LDA และการแนะนำเนื้อหา รับมือกับความท้าทายของการตัดคำภาษาไทยที่ไม่มีการเว้นวรรค',
+      'proj.type.stegano': 'Python CLI · ซอฟต์แวร์',
+      'proj.desc.stegano': 'ซ่อนและดึงข้อมูลลับภายในไฟล์ WAV ด้วยเทคนิค LSB steganography เป็น CLI ที่รองรับการเข้ารหัส/ถอดรหัสแบบปรับความลึกบิตได้',
+      'proj.type.gun': 'ระบบสมองกลฝังตัว · IoT',
+      'proj.desc.gun': 'คอนโทรลเลอร์พีซีรูปทรงปืนจริงบน ESP32-S3 — เฟิร์มแวร์ RTOS พร้อมการรับส่งสัญญาณเซ็นเซอร์แบบ interrupt และจับคู่ผ่าน Bluetooth HID เป็นอุปกรณ์อินพุตดั้งเดิม',
+
+      'skills.label': 'ทักษะ',
+      'skills.title': 'เครื่องมือที่ผมใช้',
+      'skills.core': 'ภาษาหลัก',
+      'skills.frameworks': 'เฟรมเวิร์กและเครื่องมือ',
+      'skills.security': 'ความปลอดภัยและเครือข่าย',
+      'skills.recognition': 'รางวัลและการยอมรับ',
+      'rec.kucoupon.t': 'รางวัลดีเด่น — KU-Coupon',
+      'rec.kucoupon.s': 'สุดยอดโซลูชันเพื่อ UN SDGs · KU, 2025',
+      'rec.demoday.t': 'Demo Day — Hackathon Thailand League',
+      'rec.demoday.s': 'นำเสนอที่ TrueDigital · 2023',
+      'rec.stupid.t': 'Stupid Hackathon #7, #8 · ผู้เข้าร่วม, #9 · ทีมงาน',
+      'rec.stupid.s': '3 ปีติดต่อกัน · Creatorsgarten',
+      'rec.toptalent.t': 'Thailand Cyber Top Talent 2022',
+      'rec.toptalent.s': 'โครงการระดับชาติ NCSA × Huawei',
+
+      'cert.label': 'ใบรับรอง',
+      'cert.title': 'ใบรับรองของผม',
+
+      'act.label': 'กิจกรรม',
+      'act.title': 'กิจกรรมที่ผมเข้าร่วม',
+      'act.all': 'ทั้งหมด',
+      'act.hackathon': 'แฮกกาธอน',
+      'act.workshop': 'เวิร์กช็อป',
+      'act.community': 'ชุมชน',
+
+      'contact.label': 'ติดต่อ',
+      'contact.title': 'มาสร้างอะไรด้วยกัน',
+      'contact.sub': 'ตอนนี้ผมเปิดรับงานวิศวกรซอฟต์แวร์แบบเต็มเวลา การฝึกงาน และงานฟรีแลนซ์ ถ้าคุณมีอะไรน่าสนใจ มาคุยกันได้เลย',
+      'contact.locationLabel': 'ที่อยู่',
+      'contact.locationValue': 'กรุงเทพมหานคร 🇹🇭',
+      'contact.availLabel': 'สถานะการรับงาน',
+      'contact.availValue': '<span class="status-dot"></span>เปิดรับงานเต็มเวลา ฝึกงาน และฟรีแลนซ์',
+      'contact.responseLabel': 'เวลาตอบกลับ',
+      'contact.responseValue': 'โดยปกติภายใน 24 ชั่วโมง',
+
+      'footer.built': 'สร้างด้วย ♥ · กรุงเทพฯ',
+
+      'chat.title': 'ถามเกี่ยวกับ Bunyarit',
+      'chat.sub': '<span class="chat-dot"></span>ผู้ช่วย AI · ตอบทันที',
+      'chat.greeting': 'สวัสดีครับ 👋 ผมคือผู้ช่วย AI ของ Bunyarit ถามอะไรก็ได้เกี่ยวกับทักษะ ประสบการณ์ หรือผลงานของเขา',
+      'chat.s1': 'Bunyarit ทำอะไร?',
+      'chat.s2': 'เขาถนัดเทคโนโลยีอะไร?',
+      'chat.s3': 'เล่าผลงานของเขาหน่อย',
+      'chat.s4': 'ติดต่อเขาได้อย่างไร?',
+      'chat.placeholder': 'พิมพ์คำถามของคุณ…',
+      'chat.foot': 'ขับเคลื่อนด้วย AI · คำตอบอาจไม่สมบูรณ์',
+    },
+    zh: {
+      'nav.about': '关于',
+      'nav.experience': '经历',
+      'nav.projects': '项目',
+      'nav.skills': '技能',
+      'nav.certificates': '证书',
+      'nav.activities': '活动',
+      'nav.contact': '联系',
+      'nav.cta': '联系我',
+
+      'hero.eyebrow': '计算机工程',
+      'hero.sub': '计算机工程专业学生，构建全栈产品、开源库和高安全性系统。创办了一家 12 人的软件工作室。始终编写可交付上线的代码。',
+      'hero.viewProjects': '查看项目',
+      'hero.statusLabel': '状态',
+      'hero.statusValue': '<span class="status-dot"></span>求职中',
+      'hero.gradLabel': '毕业',
+      'hero.focusLabel': '方向',
+      'hero.publishedLabel': '已发布',
+
+      'about.label': '关于',
+      'about.title': '受教育成为工程师，<br>因选择成为创业者。',
+      'about.p1': '我是泰国农业大学是拉差校区的计算机工程专业学生，将于 2026 年毕业。我构建全栈 Web 应用、后端系统和开发者工具——始终秉持安全优先的理念，这源于亲身的渗透测试经验。',
+      'about.p2': '2025 年我创办了 <strong>Compax Tech Solutions</strong>，一家 12 人的软件工作室，由我主导架构、工程与客户交付。我们为零售和服务行业客户交付项目，上线后实现了零安全漏洞。',
+      'about.p3': '我还发布了 <strong>repdeco</strong>——一个发布在 PyPI 上的 Python 弹性装饰器库——并积极参与解决真实工程问题的项目。',
+      'about.eduLabel': '教育',
+      'about.eduValue': '工学学士 · 计算机工程<br><span style="color:var(--ink-3);font-size:13px">泰国农业大学是拉差校区 · 2022–2026</span>',
+      'about.courseworkLabel': '相关课程',
+      'about.courseworkValue': '数据结构 · 操作系统 · 数据库 · 计算机网络 · 嵌入式系统 · 机器学习 · 网络安全',
+      'about.langLabel': '语言',
+      'about.langValue': '泰语 · 英语 · 西班牙语',
+
+      'exp.label': '经历',
+      'exp.title': '我工作过的地方。',
+      'exp.role.zettasoft': '全栈开发工程师',
+      'exp.desc.zettasoft': '构建并交付全栈 Web 应用，同时推动 DevSecOps 实践——将自动化安全测试嵌入 CI/CD 流水线。目前正在开发一个由 AI 驱动的 MCP（模型上下文协议）服务器，用于自动化渗透测试流程，通过 LLM 工具编排侦察、扫描与报告生成。',
+      'exp.role.compax': '自由 Web 开发者兼创始人 <span class="badge-founder">创始人</span>',
+      'exp.badge.founder': '创始人',
+      'exp.desc.compax': '创办并带领一家 12 人的软件工作室，端到端交付全栈应用——从架构设计、需求界定到 CI/CD 部署。构建了可复用的 TypeScript + React 组件库，使各项目的搭建时间减少约 40%。将基于 OWASP 的安全编码评审融入每个迭代，最终所有客户上线后均无漏洞报告。',
+      'exp.role.intern': '软件与安全工程实习生',
+      'exp.desc.intern': '评估了 5 个以上生产环境 Web 应用的 OWASP Top 10 漏洞。开发内部 Python 脚本以自动化侦察流程。撰写带有 CVSS 评级的技术报告及代码级修复指南——所有严重问题均在迭代周期内 100% 解决。',
+      'exp.role.farrmhub': '初级 Web 开发工程师',
+      'exp.desc.farrmhub': '使用 PHP 和 JavaScript 为一个农业平台开发并维护了 10 多项功能。重新设计关系型数据库结构并优化查询，将错误减少约 30%，并提升了核心流程中数据读取的一致性。',
+      'exp.role.club': '创始人兼会长 — Cyber Geek Club',
+      'exp.desc.club': '创办并带领该校科技社团，拥有 30 多名活跃成员，举办了 5 场以上关于编程、网络安全和物联网的工作坊——覆盖 100 多名学生。将社团确立为学校官方的科技社区。',
+
+      'proj.label': '项目',
+      'proj.title': '我做过的东西。',
+      'proj.type.kucoupon': '全栈 · Web 应用',
+      'proj.desc.kucoupon': '使用 Express 和 PostgreSQL 构建全栈系统，服务 2,000 多名用户。设计后端 API 与数据库结构，通过数字化系统成功减少了校园活动中的纸张使用。',
+      'proj.type.kurun': '后端 · 活动追踪',
+      'proj.desc.kurun': '使用 FastAPI 和 SQLAlchemy 开发活动追踪系统。设计了基于邮箱的安全验证系统，并通过集成 Strava 数据实现活动的自动校验。',
+      'proj.type.repdeco': '开源 · 后端',
+      'proj.desc.repdeco': '发布于 PyPI 的 Python 弹性装饰器库。提供重试、超时、熔断和降级等装饰器——以零样板代码增强不稳定的 API 和数据库连接。',
+      'proj.type.nlp': '自然语言处理 · 机器学习',
+      'proj.desc.nlp': '针对泰国政治新闻的 NLP 流水线——泰语分词、LDA 主题聚类与内容推荐。攻克泰语无空格分词的难题。',
+      'proj.type.stegano': 'Python 命令行 · 软件',
+      'proj.desc.stegano': '使用 LSB 隐写术在 WAV 文件中隐藏并提取秘密数据。命令行工具，支持可配置位深度的编码/解码。',
+      'proj.type.gun': '嵌入式系统 · 物联网',
+      'proj.desc.gun': '基于 ESP32-S3 的实体枪形 PC 控制器——RTOS 固件，具备中断驱动的传感器 I/O，并通过蓝牙 HID 作为原生输入设备配对。',
+
+      'skills.label': '技能',
+      'skills.title': '我使用的技术。',
+      'skills.core': '核心语言',
+      'skills.frameworks': '框架与工具',
+      'skills.security': '安全与网络',
+      'skills.recognition': '荣誉与认可',
+      'rec.kucoupon.t': '优秀奖 — KU-Coupon',
+      'rec.kucoupon.s': '联合国可持续发展目标最佳方案 · KU，2025',
+      'rec.demoday.t': 'Demo Day — 泰国黑客松联赛',
+      'rec.demoday.s': '于 TrueDigital 展示 · 2023',
+      'rec.stupid.t': 'Stupid Hackathon #7、#8 · 参赛者，#9 · 工作人员',
+      'rec.stupid.s': '连续三年 · Creatorsgarten',
+      'rec.toptalent.t': 'Thailand Cyber Top Talent 2022',
+      'rec.toptalent.s': 'NCSA × 华为 全国性项目',
+
+      'cert.label': '证书',
+      'cert.title': '我的资历证书。',
+
+      'act.label': '活动',
+      'act.title': '我参加过的活动。',
+      'act.all': '全部',
+      'act.hackathon': '黑客松',
+      'act.workshop': '工作坊',
+      'act.community': '社区',
+
+      'contact.label': '联系',
+      'contact.title': '一起来做点东西吧。',
+      'contact.sub': '我目前正在寻找全职软件工程师职位、实习以及自由职业项目。如果您有有趣的机会，欢迎与我聊聊。',
+      'contact.locationLabel': '所在地',
+      'contact.locationValue': '曼谷 🇹🇭',
+      'contact.availLabel': '可接洽状态',
+      'contact.availValue': '<span class="status-dot"></span>开放全职、实习与自由职业',
+      'contact.responseLabel': '回复时间',
+      'contact.responseValue': '通常在 24 小时内',
+
+      'footer.built': '用 ♥ 打造 · 曼谷',
+
+      'chat.title': '关于 Bunyarit 提问',
+      'chat.sub': '<span class="chat-dot"></span>AI 助手 · 即时回复',
+      'chat.greeting': '你好 👋 我是 Bunyarit 的 AI 助手。关于他的技能、经历或项目，尽管问我。',
+      'chat.s1': 'Bunyarit 是做什么的？',
+      'chat.s2': '他的技术栈是什么？',
+      'chat.s3': '介绍一下他的项目',
+      'chat.s4': '怎么联系他？',
+      'chat.placeholder': '输入你的问题…',
+      'chat.foot': '由 AI 驱动 · 回答可能不完美',
+    },
+  };
+
+  const LABELS: Record<string, string> = { en: 'EN', th: 'ไทย', zh: '中文' };
+  const STORAGE_KEY = 'site-lang';
+
+  const root = document.documentElement;
+  const langEl = document.getElementById('lang');
+  const btn = document.getElementById('lang-btn');
+  const menu = document.getElementById('lang-menu');
+  const current = document.getElementById('lang-current');
+
+  // Cache the original English content for every tagged element.
+  const nodes = Array.from(
+    document.querySelectorAll('[data-i18n], [data-i18n-html], [data-i18n-ph]')
+  ) as HTMLElement[];
+
+  type Entry = { kind: 'text' | 'html' | 'ph'; key: string; en: string };
+  const cache = new Map<HTMLElement, Entry>();
+  for (const el of nodes) {
+    if (el.hasAttribute('data-i18n-html')) {
+      cache.set(el, { kind: 'html', key: el.getAttribute('data-i18n-html')!, en: el.innerHTML });
+    } else if (el.hasAttribute('data-i18n-ph')) {
+      cache.set(el, { kind: 'ph', key: el.getAttribute('data-i18n-ph')!, en: (el as HTMLInputElement).placeholder });
+    } else {
+      cache.set(el, { kind: 'text', key: el.getAttribute('data-i18n')!, en: el.textContent || '' });
+    }
+  }
+
+  function apply(lang: string) {
+    const table = T[lang];
+    for (const [el, entry] of cache) {
+      const value = lang === 'en' || !table || table[entry.key] == null ? entry.en : table[entry.key];
+      if (entry.kind === 'html') el.innerHTML = value;
+      else if (entry.kind === 'ph') (el as HTMLInputElement).placeholder = value;
+      else el.textContent = value;
+    }
+    root.setAttribute('lang', lang === 'zh' ? 'zh-Hans' : lang);
+    if (current) current.textContent = LABELS[lang] || 'EN';
+    menu?.querySelectorAll('button').forEach((b) =>
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang)
+    );
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch {}
+  }
+
+  function detectInitial(): string {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && (saved === 'en' || saved === 'th' || saved === 'zh')) return saved;
+    } catch {}
+    const nav = (navigator.language || '').toLowerCase();
+    if (nav.startsWith('th')) return 'th';
+    if (nav.startsWith('zh')) return 'zh';
+    return 'en';
+  }
+
+  const openMenu = (open?: boolean) => {
+    const isOpen = open ?? !langEl?.classList.contains('open');
+    langEl?.classList.toggle('open', isOpen);
+    btn?.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openMenu();
+  });
+
+  menu?.querySelectorAll('button').forEach((b) => {
+    b.addEventListener('click', () => {
+      apply(b.getAttribute('data-lang') || 'en');
+      openMenu(false);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (langEl && !langEl.contains(e.target as Node)) openMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') openMenu(false);
+  });
+
+  apply(detectInitial());
+</script>

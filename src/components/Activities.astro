@@ -1,30 +1,36 @@
 ---
 const activities = [
   {
+    title: "Embedded Systems for EV Industry",
+    category: "workshop",
+    date: "2026 · TAPMA × KU Sriracha",
+    images: ["/images/activities/eng_sriracha_group.jpg"],
+  },
+  {
     title: "Stupid Hackathon #9",
     category: "hackathon",
     date: "2025 · Creatorsgarten",
-    images: ["/activities_img/stp9_1.png", "/activities_img/stp9_2.png"],
+    images: ["/images/activities/stp9_1.png", "/images/activities/stp9_2.png"],
   },
   {
     title: "Stupid Hackathon #8",
     category: "hackathon",
     date: "2024 · Creatorsgarten",
-    images: ["/activities_img/stp8.jpg"],
+    images: ["/images/activities/stp8.jpg"],
   },
   {
     title: "Stupid Hackathon #7",
     category: "hackathon",
     date: "2023 · Creatorsgarten",
-    images: ["/activities_img/stp7.jpg"],
+    images: ["/images/activities/stp7.jpg"],
   },
   {
     title: "Startup Thailand League",
     category: "hackathon",
     date: "2024 · Startup Thailand",
     images: [
-      "/activities_img/startup_thailnad_2.jpg",
-      "/activities_img/startup_thailand_1.jpg",
+      "/images/activities/startup_thailnad_2.jpg",
+      "/images/activities/startup_thailand_1.jpg",
     ],
   },
   {
@@ -32,9 +38,9 @@ const activities = [
     category: "workshop",
     date: "2022-2024 · NCSA",
     images: [
-      "/activities_img/nationcode.jpg",
-      "/activities_img/cyberbootcamp_1.jpg",
-      "/activities_img/cybereithsecplayground.jfif",
+      "/images/activities/nationcode.jpg",
+      "/images/activities/cyberbootcamp_1.jpg",
+      "/images/activities/cybereithsecplayground.jfif",
     ],
   },
   {
@@ -42,38 +48,38 @@ const activities = [
     category: "hackathon",
     date: "2022-2024",
     images: [
-      "/activities_img/robotics.jpg",
-      "/activities_img/code_competition.jfif",
-      "/activities_img/hackabuff.jfif",
-      "/activities_img/nationcode.jpg",
-      "/activities_img/mos_olympic.jfif",
+      "/images/activities/robotics.jpg",
+      "/images/activities/code_competition.jfif",
+      "/images/activities/hackabuff.jfif",
+      "/images/activities/nationcode.jpg",
+      "/images/activities/mos_olympic.jfif",
     ],
   },
   {
     title: "KU-Coupon · UN SDGs",
     category: "hackathon",
     date: "2025 · Kasetsart University",
-    images: ["/activities_img/kupon.jpg"],
+    images: ["/images/activities/kupon.jpg"],
   },
   {
     title: "Public Speaking & Pitching",
     category: "community",
     date: "2024 · KU Sriracha",
-    images: ["/activities_img/speak_1.jfif", "/activities_img/speak_2.jpg"],
+    images: ["/images/activities/speak_1.jfif", "/images/activities/speak_2.jpg"],
   },
   {
     title: "Teaching & Mentoring",
     category: "community",
     date: "2024 · KU Sriracha",
-    images: ["/activities_img/teach_1.jpg", "/activities_img/teach_2.jpg"],
+    images: ["/images/activities/teach_1.jpg", "/images/activities/teach_2.jpg"],
   },
   {
     title: "Cyber Geek Club & Open House",
     category: "community",
     date: "2024-2025 · KU Sriracha",
     images: [
-      "/activities_img/clubpresident.jpg",
-      "/activities_img/openhouse.jfif",
+      "/images/activities/clubpresident.jpg",
+      "/images/activities/openhouse.jfif",
     ],
   },
   {
@@ -81,11 +87,11 @@ const activities = [
     category: "workshop",
     date: "2023-2024",
     images: [
-      "/activities_img/English_practice_1.jpg",
-      "/activities_img/English_practice_2.jpg",
-      "/activities_img/English_practice_3.jpg",
-      "/activities_img/ielts_practice_1.jpg",
-      "/activities_img/ielts_2.jpg",
+      "/images/activities/English_practice_1.jpg",
+      "/images/activities/English_practice_2.jpg",
+      "/images/activities/English_practice_3.jpg",
+      "/images/activities/ielts_practice_1.jpg",
+      "/images/activities/ielts_2.jpg",
     ],
   },
 ];
@@ -94,15 +100,15 @@ const activities = [
 <section id="activities">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label">Activities</div>
-      <div class="sec-title">Events I've joined.</div>
+      <div class="sec-label" data-i18n="act.label">Activities</div>
+      <div class="sec-title" data-i18n="act.title">Events I've joined.</div>
     </div>
 
     <div class="activities-filter reveal">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="hackathon">Hackathon</button>
-      <button class="filter-btn" data-filter="workshop">Workshop</button>
-      <button class="filter-btn" data-filter="community">Community</button>
+      <button class="filter-btn active" data-filter="all" data-i18n="act.all">All</button>
+      <button class="filter-btn" data-filter="hackathon" data-i18n="act.hackathon">Hackathon</button>
+      <button class="filter-btn" data-filter="workshop" data-i18n="act.workshop">Workshop</button>
+      <button class="filter-btn" data-filter="community" data-i18n="act.community">Community</button>
     </div>
 
     <div class="gallery-grid reveal">
@@ -118,9 +124,9 @@ const activities = [
               <div class="gallery-overlay-title">{item.title}</div>
               <div class="gallery-overlay-date">{item.date}</div>
               {item.images.length > 1 && (
-                <div style="font-size: 11px; color: rgba(255,255,255,0.9); margin-top: 4px; font-weight: 500;">
+                <span class="gallery-overlay-date">
                   + {item.images.length - 1} photos
-                </div>
+                </span>
               )}
             </div>
           </div>

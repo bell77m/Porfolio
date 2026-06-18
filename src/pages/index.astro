@@ -11,6 +11,7 @@ import Certificates from '../components/Certificates.astro';
 import Activities from '../components/Activities.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import ChatWidget from '../components/ChatWidget.astro';
 ---
 
 <BaseLayout>
@@ -24,6 +25,7 @@ import Footer from '../components/Footer.astro';
   <Activities />
   <Contact />
   <Footer />
+  <ChatWidget />
 
   <script>
     // Scroll reveal
@@ -42,5 +44,13 @@ import Footer from '../components/Footer.astro';
     document.querySelectorAll('.proj-grid .reveal, .skills-grid .reveal, .cert-grid .reveal').forEach((el, i) => {
       el.style.transitionDelay = (i * 80) + 'ms';
     });
+
+    // Navbar scrolled state
+    const navEl = document.querySelector('nav');
+    if (navEl) {
+      const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
   </script>
 </BaseLayout>

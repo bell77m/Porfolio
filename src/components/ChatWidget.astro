@@ -1,0 +1,456 @@
+---
+const suggestions = [
+  { key: "chat.s1", text: "What does Bunyarit do?" },
+  { key: "chat.s2", text: "What's his tech stack?" },
+  { key: "chat.s3", text: "Tell me about his projects" },
+  { key: "chat.s4", text: "How can I contact him?" },
+];
+---
+
+<div class="chat" id="chat">
+  <!-- Floating launcher -->
+  <button class="chat-fab" id="chat-fab" aria-label="Ask AI about Bunyarit" aria-expanded="false">
+    <svg class="chat-fab-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8 8.38 8.38 0 0 1 8.5-8.5 8.5 8.5 0 0 1 8.5 8.5z" />
+    </svg>
+    <svg class="chat-fab-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Panel -->
+  <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Ask AI about Bunyarit" aria-hidden="true">
+    <div class="chat-head">
+      <div class="chat-head-avatar">BJ</div>
+      <div class="chat-head-meta">
+        <div class="chat-head-title" data-i18n="chat.title">Ask about Bunyarit</div>
+        <div class="chat-head-sub" data-i18n-html="chat.sub"><span class="chat-dot"></span>AI assistant · usually instant</div>
+      </div>
+    </div>
+
+    <div class="chat-body" id="chat-body">
+      <div class="chat-msg bot">
+        <div class="chat-bubble" data-i18n="chat.greeting">Hi! 👋 I'm Bunyarit's AI assistant. Ask me anything about his skills, experience, or projects.</div>
+      </div>
+      <div class="chat-suggest" id="chat-suggest">
+        {suggestions.map((s) => (
+          <button class="chat-chip" type="button" data-i18n={s.key}>{s.text}</button>
+        ))}
+      </div>
+    </div>
+
+    <form class="chat-input" id="chat-form" autocomplete="off">
+      <input id="chat-text" type="text" placeholder="Type your question…" data-i18n-ph="chat.placeholder" aria-label="Your question" maxlength="2000" />
+      <button type="submit" id="chat-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
+        </svg>
+      </button>
+    </form>
+    <div class="chat-foot" data-i18n="chat.foot">Powered by AI · answers may be imperfect</div>
+  </div>
+</div>
+
+<style is:global>
+  .chat {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 900;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .chat-fab {
+    width: 56px;
+    height: 56px;
+    border: 3px solid #000;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .chat-fab:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  .chat-fab svg {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    transition: opacity 0.15s;
+  }
+
+  .chat-fab-close {
+    opacity: 0;
+  }
+
+  .chat.open .chat-fab-open {
+    opacity: 0;
+  }
+
+  .chat.open .chat-fab-close {
+    opacity: 1;
+  }
+
+  .chat-panel {
+    position: absolute;
+    right: 0;
+    bottom: 70px;
+    width: min(380px, calc(100vw - 2rem));
+    height: min(560px, calc(100vh - 7rem));
+    background: #fff;
+    border: 3px solid #000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  .chat.open .chat-panel {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .chat-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    border-bottom: 3px solid #000;
+    background: #000;
+    color: #fff;
+  }
+
+  .chat-head-avatar {
+    width: 38px;
+    height: 38px;
+    background: #fff;
+    color: #000;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+  }
+
+  .chat-head-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .chat-head-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .chat-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50% !important;
+    background: #008000;
+    display: inline-block;
+  }
+
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .chat-msg {
+    display: flex;
+    max-width: 88%;
+  }
+
+  .chat-msg.user {
+    align-self: flex-end;
+    justify-content: flex-end;
+  }
+
+  .chat-msg.bot {
+    align-self: flex-start;
+  }
+
+  .chat-bubble {
+    padding: 0.6rem 0.85rem;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 2px solid #000;
+  }
+
+  .chat-msg.bot .chat-bubble {
+    background: #f0f0f0;
+    color: #000;
+  }
+
+  .chat-msg.user .chat-bubble {
+    background: #000;
+    color: #fff;
+  }
+
+  .chat-bubble.typing {
+    color: #8a8a8a;
+  }
+
+  .chat-suggest {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+
+  .chat-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .chat-chip:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .chat-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.8rem;
+    border-top: 3px solid #000;
+  }
+
+  .chat-input input {
+    flex: 1;
+    border: 3px solid #000;
+    padding: 0.6rem 0.95rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #000;
+    background: #f0f0f0;
+    outline: none;
+    transition: border-width 0.1s;
+  }
+
+  .chat-input input:focus {
+    border: 5px solid #000;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .chat-input button {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 3px solid #000;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .chat-input button:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
+  }
+
+  .chat-input button:disabled {
+    background: #f5f5f5;
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .chat-input button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .chat-foot {
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #8a8a8a;
+    padding: 0 0 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* typing dots */
+  .chat-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 1px;
+    border-radius: 50% !important;
+    background: #8a8a8a;
+    animation: chatBlink 1.2s infinite both;
+  }
+
+  .chat-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes chatBlink {
+    0%, 80%, 100% { opacity: 0.25; }
+    40% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat-fab, .chat-panel, .chat-chip, .chat-input button { transition: none; }
+    .chat-dots span { animation: none; }
+  }
+</style>
+
+<script>
+  const chat = document.getElementById('chat');
+  const fab = document.getElementById('chat-fab');
+  const panel = document.getElementById('chat-panel');
+  const body = document.getElementById('chat-body');
+  const form = document.getElementById('chat-form') as HTMLFormElement | null;
+  const input = document.getElementById('chat-text') as HTMLInputElement | null;
+  const sendBtn = document.getElementById('chat-send') as HTMLButtonElement | null;
+  const suggest = document.getElementById('chat-suggest');
+
+  if (chat && fab && panel && body && form && input && sendBtn) {
+    // role: 'user' | 'assistant'
+    const history: { role: string; content: string }[] = [];
+    let busy = false;
+
+    const toggle = (open?: boolean) => {
+      const isOpen = open ?? !chat.classList.contains('open');
+      chat.classList.toggle('open', isOpen);
+      fab.setAttribute('aria-expanded', String(isOpen));
+      panel.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen) setTimeout(() => input.focus(), 250);
+    };
+
+    fab.addEventListener('click', () => toggle());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && chat.classList.contains('open')) toggle(false);
+    });
+
+    const scrollDown = () => { body.scrollTop = body.scrollHeight; };
+
+    const addBubble = (role: 'user' | 'bot', text: string) => {
+      const wrap = document.createElement('div');
+      wrap.className = `chat-msg ${role}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+      bubble.textContent = text;
+      wrap.appendChild(bubble);
+      body.appendChild(wrap);
+      scrollDown();
+      return bubble;
+    };
+
+    const send = async (text: string) => {
+      const q = text.trim();
+      if (!q || busy) return;
+      busy = true;
+      sendBtn.disabled = true;
+      if (suggest) suggest.remove();
+
+      addBubble('user', q);
+      history.push({ role: 'user', content: q });
+      input.value = '';
+
+      // typing indicator
+      const botBubble = addBubble('bot', '');
+      botBubble.classList.add('typing');
+      botBubble.innerHTML = '<span class="chat-dots"><span></span><span></span><span></span></span>';
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ messages: history }),
+        });
+
+        if (!res.ok || !res.body) {
+          let msg = "Sorry, I couldn't respond right now. Please email bell77m@gmail.com.";
+          try {
+            const data = await res.json();
+            if (data?.error) msg = data.error;
+          } catch {}
+          botBubble.classList.remove('typing');
+          botBubble.textContent = msg;
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let acc = '';
+        let first = true;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          acc += decoder.decode(value, { stream: true });
+          if (first && acc) {
+            botBubble.classList.remove('typing');
+            first = false;
+          }
+          botBubble.textContent = acc;
+          scrollDown();
+        }
+
+        if (!acc.trim()) {
+          botBubble.classList.remove('typing');
+          botBubble.textContent = "I didn't catch that — could you rephrase?";
+        } else {
+          history.push({ role: 'assistant', content: acc });
+        }
+      } catch {
+        botBubble.classList.remove('typing');
+        botBubble.textContent = "Network error. Please try again, or email bell77m@gmail.com.";
+      } finally {
+        busy = false;
+        sendBtn.disabled = false;
+        scrollDown();
+      }
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      send(input.value);
+    });
+
+    if (suggest) {
+      suggest.querySelectorAll<HTMLButtonElement>('.chat-chip').forEach((chip) => {
+        chip.addEventListener('click', () => send((chip.textContent || '').trim()));
+      });
+    }
+  }
+</script>

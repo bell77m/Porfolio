@@ -1,5 +1,10 @@
 ---
 const certificates = [
+  { pdf: '/certificates/cert-internship.pdf', title: 'Software Tester Internship', issuer: 'You And Earth (Thailand)', date: '2026' },
+  { pdf: '/certificates/cert-pmp-intro.pdf', title: 'Intro to Project Management (PMP)®', issuer: 'Online Course', date: '2026' },
+  { pdf: '/certificates/certificate.pdf', title: 'Cryptography — Basic Knowledge', issuer: 'Sec Playground', date: '2025' },
+  { pdf: '/certificates/cert-31.pdf', title: 'Web Application Development: React', issuer: 'Digital Academy Thailand', date: '2023' },
+  { pdf: '/certificates/cert-15.pdf', title: 'Data Analytics for Business', issuer: 'Digital Academy Thailand', date: '2023' },
   { img: '/certificates/1754842391362.png', title: 'Certification', issuer: 'Credential', date: '2025' },
   { img: '/certificates/1754842689079.jfif', title: 'Certification', issuer: 'Credential', date: '2024' },
   { img: '/certificates/1754843216272.jfif', title: 'Certification', issuer: 'Credential', date: '2024' },
@@ -13,13 +18,32 @@ const certificates = [
 <section id="certificates">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label">Certifications</div>
-      <div class="sec-title">My credentials.</div>
+      <div class="sec-label" data-i18n="cert.label">Certifications</div>
+      <div class="sec-title" data-i18n="cert.title">My credentials.</div>
     </div>
     <div class="cert-grid">
       {certificates.map((cert) => (
-        <a href={cert.img} target="_blank" class="cert-card reveal">
-          <img src={cert.img} alt={cert.title} />
+        <a
+          href={cert.pdf || cert.img}
+          target="_blank"
+          rel="noopener"
+          class={`cert-card reveal${cert.pdf ? ' cert-card--pdf' : ''}`}
+          data-pdf={cert.pdf}
+        >
+          {cert.pdf ? (
+            <>
+              <canvas class="cert-canvas" aria-hidden="true"></canvas>
+              <div class="cert-pdf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>
+                <span class="cert-pdf-tag">PDF</span>
+              </div>
+            </>
+          ) : (
+            <img src={cert.img} alt={cert.title} />
+          )}
           <div class="cert-overlay">
             <div class="cert-header">
               <div class="cert-issuer">{cert.issuer}</div>
@@ -32,3 +56,54 @@ const certificates = [
     </div>
   </div>
 </section>
+
+<script is:inline type="module">
+  (async () => {
+    const cards = document.querySelectorAll('.cert-card--pdf[data-pdf]');
+    if (!cards.length) return;
+
+    let pdfjs;
+    try {
+      pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4/build/pdf.min.mjs');
+      pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4/build/pdf.worker.min.mjs';
+    } catch (e) {
+      console.warn('[cert] PDF.js failed to load — keeping icon fallback', e);
+      return;
+    }
+
+    const renderCard = async (card) => {
+      const url = card.getAttribute('data-pdf');
+      const canvas = card.querySelector('.cert-canvas');
+      if (!url || !canvas) return;
+      try {
+        const pdf = await pdfjs.getDocument(url).promise;
+        const page = await pdf.getPage(1);
+        const base = page.getViewport({ scale: 1 });
+        const targetWidth = 700;
+        const viewport = page.getViewport({ scale: targetWidth / base.width });
+        canvas.width = Math.round(viewport.width);
+        canvas.height = Math.round(viewport.height);
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+        card.classList.add('loaded');
+      } catch (e) {
+        console.warn('[cert] failed to render preview for', url, e);
+      }
+    };
+
+    // Render lazily as cards approach the viewport
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            obs.unobserve(entry.target);
+            renderCard(entry.target);
+          }
+        });
+      }, { rootMargin: '200px' });
+      cards.forEach((c) => io.observe(c));
+    } else {
+      cards.forEach((c) => renderCard(c));
+    }
+  })();
+</script>
