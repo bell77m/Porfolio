@@ -199,7 +199,6 @@ const suggestions = [
     font-family: 'Work Sans', sans-serif;
     font-size: 13.5px;
     line-height: 1.55;
-    white-space: pre-wrap;
     word-wrap: break-word;
     border: 2px solid #000;
   }
@@ -212,6 +211,31 @@ const suggestions = [
   .chat-msg.user .chat-bubble {
     background: #000;
     color: #fff;
+    white-space: pre-wrap;
+  }
+
+  /* Markdown Styles inside bot bubble */
+  .chat-msg.bot .chat-bubble p {
+    margin: 0 0 0.5rem 0;
+  }
+  .chat-msg.bot .chat-bubble p:last-child {
+    margin: 0;
+  }
+  .chat-msg.bot .chat-bubble ul, 
+  .chat-msg.bot .chat-bubble ol {
+    margin: 0.2rem 0 0.5rem 0;
+    padding-left: 1.2rem;
+  }
+  .chat-msg.bot .chat-bubble li {
+    margin-bottom: 0.2rem;
+  }
+  .chat-msg.bot .chat-bubble strong {
+    font-weight: 700;
+  }
+  .chat-msg.bot .chat-bubble a {
+    color: #0000FF;
+    text-decoration: underline;
+    font-weight: 500;
   }
 
   .chat-bubble.typing {
@@ -335,6 +359,8 @@ const suggestions = [
 </style>
 
 <script>
+  import { marked } from 'marked';
+
   const chat = document.getElementById('chat');
   const fab = document.getElementById('chat-fab');
   const panel = document.getElementById('chat-panel');
@@ -422,7 +448,7 @@ const suggestions = [
             botBubble.classList.remove('typing');
             first = false;
           }
-          botBubble.textContent = acc;
+          botBubble.innerHTML = await marked.parse(acc);
           scrollDown();
         }
 
@@ -431,6 +457,7 @@ const suggestions = [
           botBubble.textContent = "I didn't catch that — could you rephrase?";
         } else {
           history.push({ role: 'assistant', content: acc });
+          botBubble.innerHTML = await marked.parse(acc);
         }
       } catch {
         botBubble.classList.remove('typing');
