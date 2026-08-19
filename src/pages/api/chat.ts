@@ -29,6 +29,7 @@ const SYSTEM_PROMPT = `You are "Bunyarit's Portfolio Assistant" — a friendly A
 - Security & networking: OWASP Top 10, Secure Coding, VAPT, TCP/IP, HTTP/S, Burp Suite, Nmap, Wireshark.
 
 # Projects
+- KU·DMS (reg1.src.ku.ac.th) — document management and approval system for KU Sriracha student-organization projects. SvelteKit + ElysiaJS (Bun) + PostgreSQL/Drizzle, role-based permissions, multi-step approval workflow, template-driven documents; deployed on university servers.
 - repdeco — Python resilience-decorator library on PyPI (retry, timeout, circuit breaker, fallback). github.com/bell77m/repdeco
 - KU Coupon — full-stack e-coupon platform (Express + PostgreSQL) for 2,000+ users.
 - KURUN Check-in — event-tracking backend (FastAPI + SQLAlchemy + Strava API).
