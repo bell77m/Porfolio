@@ -16,7 +16,8 @@ const SYSTEM_PROMPT = `You are "Bunyarit's Portfolio Assistant" — a friendly A
 - Based in Bangkok, Thailand. Open to full-time software engineering roles, internships, and freelance projects. Usually replies within 24 hours.
 
 # Current & past experience
-- 2026–Present — Full-Stack Developer at Zettasoft (DPlus Group). Builds full-stack web apps and drives DevSecOps (automated security testing in CI/CD). Currently developing an AI-powered MCP (Model Context Protocol) server that automates penetration-testing workflows.
+- 2026–Present — Test Engineer at Quanta Computer. Validates products against specification: designs and runs functional and regression test cases, automates repetitive checks, and reports defects to engineering.
+- 2026 — Full-Stack Developer at Zettasoft (DPlus Group). Built full-stack web apps and drove DevSecOps (automated security testing in CI/CD). Developed an AI-powered MCP (Model Context Protocol) server that automates penetration-testing workflows.
 - 2025–Present — Founder & lead at Compax Tech Solutions (Remote), a 12-person software studio. Leads architecture, engineering, and client delivery. Stack: TypeScript, React, FastAPI, Docker. Shipped client projects with zero post-launch vulnerabilities.
 - 2025–2026 — Software & Security Engineer Intern at You And Earth (Thailand) Co., Ltd. (Bangkok). Assessed production web apps for OWASP Top 10, built Python recon-automation scripts, wrote CVSS-rated reports.
 - 2024–2025 — Founder & President of the Cyber Geek Club at KU Sriracha (30+ members, ran workshops on programming, cybersecurity, IoT).
